@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body ng-app="app">
+  
+  
+<div class='row' style='padding-left:33%'> <h2>Passenger Reservation Enquiry</h2> </div>
+   <nav class="navbar navbar-default"  style='padding-left:33%;background-color:#c1c1c1;'>
+  <div class="container-fluid">
+    <div class="navbar-header">  
+      
+    </div>
+    
+  </div>
+</nav>
+      <div class="row" ng-controller = "test">
+			<div class="col-md-2" id='sidebar'>
+			
+  
+  </ul>
+
+			</div>
+      <div  class="col-md-10"  id='test1'>
+	  <div class='row'>
+		 <div class='col-md-2'>
+		 
+		 </div>
+		 <div class='col-md-6'>
+		 <h2>Trains Between Two Station</h2>
+		 </div>
+		 <div class='col-md-4'>
+		 
+		 </div>
+         </div>
+		 <div class="form-group">
+		 <div class='row'>
+		 <div class='col-md-2'>
+		 <label for="usr">From:</label>
+		 </div>
+		 <div class='col-md-4'>
+		 <input type="text" class="form-control" ng-model="fromStn" id="usr" style='width:80%'>
+		 </div>
+		 <div class='col-md-2'>
+		 <label for="usr">To:</label>
+		 </div>
+		 <div class='col-md-4'>
+		 <input type="text" class="form-control" ng-model="toStn" id="usr" style='width:80%'>
+		 </div>
+  </div>
+  <div class='row' style='padding-top:2%;'>
+  <div class='col-md-2'>
+		 <label for="usr">Class:</label>
+		 </div>
+   <div class='col-md-4'>
+   <select class="form-control" id="sel1" style='width:80%' ng-model="jClass">
+    <option><a href="#">All</a></option>
+    <option><a href="#">First</a></option>
+    <option><a href="#">Second</a></option>
+	<option><a href="#">Third</a></option>
+    <option><a href="#">Economy</a></option>
+    <option><a href="#">Chaircar</a></option>
+  </select>
+  
+  
+
+    </div>
+	<div class='col-md-2'>
+	 <label for="datepicker-13">Date:</label>
+    </div>
+	<div class='col-md-4'>
+	<input type = "text" ng-model="jDate" id = "datepicker-13"></p>
+    </div>
+
+ 
+ </div>
+ <div class='row' style='float: right;padding-right: 8%;padding-top: 2%;'>
+ <button type="button" id='btn' ng-click="getTrainList()" class="btn btn-info" >Info</button>
+  <button type="button" class="btn btn-info">reset</button>
+</div>
+</div>
+      </div>
+	  <div class='row' id='test2' style='display:none';>
+	  <div class='col-md-12'>
+	  <table width="98%" border="1" bordercolor="#993300" align="center" cellpadding="3" cellspacing="1" class="table_border_both_left"><tbody>
+	  <tr class="heading_table_top" style='background-color:#c1c1c1;'>
+<td width="9%" rowspan="2">Train No.</td>
+<td width="20%" rowspan="2"><span class="style2">Train Name</span></td>
+<td width="14%" rowspan="2">Origin</td>
+<td width="5%" rowspan="2">Dep.Time</td>
+<td width="13%" rowspan="2">Destination</td>
+<td width="5%" rowspan="2">Arr.Time</td>
+<td width="6%" rowspan="2">Travel Time</td>
+<td width="7%" rowspan="2" ># Days Of Run (Monthly)</td>
+</tr>
+<tr class="heading_table_top" >
+<td width="0%" style="display:none;"></td>
+
+</tr>
+<tr ng-repeat="x in names">
+<td>{{x.train_no}}</td>
+<td title=" Please look the following same trains list also ">
+<span class="style2"><a href="#SAMETRN">{{x.train_name}}</a><a name="BACKSAMETRN"></a></span>
+</td>
+<td title="SDAH This Train is temporary, valid From 31-1-2016 to 31-12-2099, "><a href="#TEMPTRN">{{x.origin}}</a><a name="BACKTEMPTRN"></a>
+</td>
+<td>{{ x.deperture }}</td>
+<td title="Station Code NJP ">{{x.destination}}</td>
+<td>{{x.arrival}}</td>
+<td>{{x.travel_time}}</td>
+
+<td>{{x.days_of_run}}</td>
+
+</tr>
+
+
+</tbody></table>
+
+	  </div>
+	  </div>
+      </div>
+	  
+</body>

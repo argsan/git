@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+div.container {
+    width: 100%;
+    
+}
+
+header, footer {
+    padding: 1em;
+    color: black;
+    background-color: #c1c1c1;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+#footer {
+	/* background: url(../images/bg_body.png) repeat #CCC; */
+	background: #f8f8f8;
+	border-top: 1px solid #FFF;
+	bottom: 0;
+	height: 60px;
+	position: fixed;
+	padding: 10px 0;
+	width:100%;
+	z-index: 9;
+	background-color:#414141;
+}
+
+
+#footer a {
+  color:#efefef;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Solace Paho Demo</h1>
+</header>
+
+</div>
+<div class="container" style="padding-top:2%">
+
+<button type="button" class="btn btn-primary" ng-click="productList()">Product List</button>
+<button type="button" class="btn btn-success" ng-click="login()" value="Login">Train List</button>
+
+</div>
+
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted">&copy; Solace</p>
+  </div>
+</div>
+</body>
+</html>
