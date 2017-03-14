@@ -1,0 +1,4 @@
+com\solace\mqtt\sample\MqttPublishSample.class
+com\solace\rest\RESTPublishSample.class
+com\solace\mqtt\reqrepl\BasicRequestor.class
+com\solace\mqtt\reqrepl\BasicRequestor$1.class
