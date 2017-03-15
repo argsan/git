@@ -20,9 +20,9 @@ myOtherModule.controller('railCtrl', function($rootScope, $scope, $http, $log, $
   	
 });
 myOtherModule.controller('productCtrl', [ '$scope', 'MqttClient', '$timeout', function( $scope,MqttClient, $timeout) {
- //$scope.responce = '{"records":[ {"name":"Panasonic 81cm (32) HD Ready LED TV","description":"HD Ready | 1366 x 768 Resolution, 176(H)-degree Viewing Angle-16 W Speaker Output","price":"16,490","rating":"4.5","image":"image"},{"name":"Vu 80cm (32) HD Ready LED TV","description":"HD Ready | 1366 x 768 Resolution-178(H)-degree Viewing Angle-12-W Speaker Output","price":"13,990","rating":"4.3","image":"image"},{"name":"BPL Vivid 80cm (32) HD Ready LED TV","description":"HD Ready | 1366 x 768 Resolution-175(H)/165(V) degree Viewing Angle-116 W Speaker Output","price":"14,990","rating":"4.9","image":"image"}]}';
-	var ip = "35.156.24.107";
-    var port = "8002";
+ 
+	var ip = "";
+    var port = "";
     var id = "HelloWorldQoS1Consumer";
 	var client = MqttClient.init(ip, port, id);
 	
@@ -48,15 +48,14 @@ myOtherModule.controller('productCtrl', [ '$scope', 'MqttClient', '$timeout', fu
 			$scope.products = (angular.fromJson(client._val)).records;
 		}
 	}	
- //$scope.names = (angular.fromJson($scope.responce)).records
-// alert($scope.names); 
+ 
 }]);
 (function() {
 	myOtherModule.controller('test', [ '$scope', 'MqttClient', '$timeout', function($scope, MqttClient, $timeout) {
 
-	//var ip = "192.168.56.101";
-	var ip = "35.156.24.107";
-    var port = "8002";
+	
+	var ip = "";
+    var port = "";
     var id = "HelloWorldQoS1Consumer";
     var respon = "";
 
