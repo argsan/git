@@ -40,7 +40,7 @@ public class ProductCatalogue {
     	try {
             // Create an Mqtt client
 //            MqttAsyncClient mqttClient = new MqttAsyncClient("tcp://192.168.56.101:8001", "HelloWorldQoS1Consumer");
-            MqttAsyncClient mqttClient = new MqttAsyncClient("tcp://", "HelloWorldQoS1Consumer");
+            MqttAsyncClient mqttClient = new MqttAsyncClient("tcp://35.156.24.107:8001", "HelloWorldQoS1Consumer");
             MqttConnectOptions connOpts = new MqttConnectOptions();
          
             connOpts.setUserName("sample");
@@ -128,7 +128,7 @@ public class ProductCatalogue {
         System.out.println("QueueConsumer initializing...");
         // Create a JCSMP Session
         final JCSMPProperties properties = new JCSMPProperties();
-        properties.setProperty(JCSMPProperties.HOST, ""); // msg-backbone ip:port
+        properties.setProperty(JCSMPProperties.HOST, "35.156.24.107"); // msg-backbone ip:port
         properties.setProperty(JCSMPProperties.VPN_NAME, "Sample-Message-VPM"); // message-vpn
         properties.setProperty(JCSMPProperties.USERNAME, "sample"); // client-username
         properties.setProperty(JCSMPProperties.PASSWORD, "sample"); // 
@@ -216,13 +216,13 @@ public class ProductCatalogue {
         
         try {
             // Create an Mqtt client
-            MqttClient mqttClient = new MqttClient("tcp://", "HelloWorldQoS1Producer");
+            MqttClient mqttClient = new MqttClient("tcp://35.156.24.107:8001", "HelloWorldQoS1Producer");
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setUserName("sample");
             connOpts.setPassword("sample".toCharArray());
             connOpts.setCleanSession(true);
             // Connect the client
-            System.out.println("Connecting to Solace broker: tcp://" + "tcp://");
+            System.out.println("Connecting to Solace broker: tcp://" + "tcp://35.156.24.107:8001");
             mqttClient.connect(connOpts);
             System.out.println("Connected");
             // Create a Mqtt message
