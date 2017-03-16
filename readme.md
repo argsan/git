@@ -14,6 +14,6 @@ For router configuraiton
 Please run the cli script located under Solace-Demo file name Solace-Demo/Sample-Message-VPM.cli.
 
 How to run the application
-Run the file IRCTCMessageManager. Or buid a executable jar and then run the same
+Run the file DataFechingFactory. Or buid a executable jar and then run the same
 Start your webserver where you have deployed Solace-Demo application
 Hit the url http://<YOUR HOST>:<YOUR PORT>/Solace-Demo/index.html 
