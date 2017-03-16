@@ -1,37 +1,40 @@
 package com.solace.irctc.messageq;
 
-import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.concurrent.CountDownLatch;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import com.solace.dto.Days;
-import com.solace.dto.Record;
-import com.solace.dto.TrainDetailsDTO;
+import com.solace.mqtt.domain.GenericDataManager;
 import com.solacesystems.jcsmp.BytesXMLMessage;
 import com.solacesystems.jcsmp.ConsumerFlowProperties;
-import com.solacesystems.jcsmp.DeliveryMode;
 import com.solacesystems.jcsmp.EndpointProperties;
 import com.solacesystems.jcsmp.FlowReceiver;
 import com.solacesystems.jcsmp.JCSMPException;
 import com.solacesystems.jcsmp.JCSMPFactory;
 import com.solacesystems.jcsmp.JCSMPProperties;
 import com.solacesystems.jcsmp.JCSMPSession;
-import com.solacesystems.jcsmp.JCSMPStreamingPublishEventHandler;
 import com.solacesystems.jcsmp.Queue;
 import com.solacesystems.jcsmp.TextMessage;
-import com.solacesystems.jcsmp.Topic;
 import com.solacesystems.jcsmp.XMLMessageListener;
-import com.solacesystems.jcsmp.XMLMessageProducer;
 
-public class IRCTCMessageManager2 {
+public class DataFechingFactory {
 
     public static void main(String... args) throws JCSMPException, InterruptedException {
     	consumeMessage();
     }
     
+  
     public static void consumeMessage() throws JCSMPException, InterruptedException
     {
         final List <String> outputStr= new ArrayList<String>();
@@ -39,7 +42,7 @@ public class IRCTCMessageManager2 {
         System.out.println("QueueConsumer initializing...");
         // Create a JCSMP Session
         final JCSMPProperties properties = new JCSMPProperties();
-        properties.setProperty(JCSMPProperties.HOST, "192.168.56.101"); // msg-backbone ip:port
+        properties.setProperty(JCSMPProperties.HOST, "35.156.24.107"); // msg-backbone ip:port
         properties.setProperty(JCSMPProperties.VPN_NAME, "Sample-Message-VPM"); // message-vpn
         properties.setProperty(JCSMPProperties.USERNAME, "sample"); // client-username
         properties.setProperty(JCSMPProperties.PASSWORD, "sample"); // 
@@ -74,10 +77,10 @@ public class IRCTCMessageManager2 {
                 if (msg instanceof TextMessage) {
                     System.out.printf("TextMessage received: '%s'%n", ((TextMessage) msg).getText());
                 } else {
+                	
                     System.out.println("Message received.");
                 }
-                System.out.printf("Message Dump:%n%s%n", msg.dump());
-                
+             
                 String outputchr = new String(msg.dump());
                 outputStr.add(0, outputchr);
 
@@ -106,72 +109,75 @@ public class IRCTCMessageManager2 {
         // Close consumer
         cons.close();
         System.out.println("Exiting.");
-        publishMessage(outputStr.toString());
+        if(outputStr !=null && outputStr.size()>0)
+        {
+        	System.out.println(outputStr.get(0));
+        	String ss1 = outputStr.get(0);
+        	String ss2 =  outputStr.get(0).substring(ss1.indexOf("table"), ss1.length());
+        	System.out.println(ss2);
+        	 publishMessage(ss2);
+        }
+           
     }
     
     
-    @SuppressWarnings("unchecked")
-	public static String loadData()
-    {
-    	ArrayList <TrainDetailsDTO> trainLst = new ArrayList<TrainDetailsDTO>();
-    	Record rec = new Record();
-    	TrainDetailsDTO trnDto = new TrainDetailsDTO("25657", "KANCHANJANGA EX", "SEALDAH", "NEW JALPAIGURI", "06:35", "18:15", "11:40", "6", null);
-    	Days day = new Days("Y","Y","Y","Y","Y","N","Y");
-       	trnDto.setDays(day);
-    	trainLst.add(trnDto);
-    	trnDto = new TrainDetailsDTO("13141", "TESTA TORSA EXP", "SEALDAH", "NEW JALPAIGURI", "13:40", "02:40", "13:00", "6", null);
-    	day = new Days("Y","Y","Y","Y","Y","N","Y");
-    	trnDto.setDays(day);
-    	trainLst.add(trnDto);
-    	rec.setRecords(trainLst);
-    	   ObjectMapper mapperObj = new ObjectMapper();
-	        try {
-	            String jsonStr = mapperObj.writeValueAsString(rec);
-	            System.out.println(jsonStr.substring(0, 0));
-	            return jsonStr;
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	  
-		return null;
+    
     	
-    }
     
-    public static void publishMessage(String message) throws JCSMPException, InterruptedException {
+    public static void publishMessage(String dataString) throws JCSMPException, InterruptedException {
         // Check command line arguments
         System.out.println("QueueProducer initializing...");
-        // Create a JCSMP Session
-        final JCSMPProperties properties = new JCSMPProperties();
-        properties.setProperty(JCSMPProperties.HOST, "192.168.56.101"); // msg-backbone ip:port
-        properties.setProperty(JCSMPProperties.VPN_NAME, "Sample-Message-VPM"); // message-vpn
-        properties.setProperty(JCSMPProperties.USERNAME, "sample"); // client-username
-        properties.setProperty(JCSMPProperties.PASSWORD, "sample"); // 
-        final JCSMPSession session = JCSMPFactory.onlyInstance().createSession(properties);
-        session.connect();
-
-        final Topic topic = JCSMPFactory.onlyInstance().createTopic("topic/respTopic");
-        /** Anonymous inner-class for handling publishing events */
-        XMLMessageProducer prod = session.getMessageProducer(new JCSMPStreamingPublishEventHandler() {
-            public void responseReceived(String messageID) {
-                System.out.println("Producer received response for msg: " + messageID);
+        
+        try {
+            // Create an Mqtt client
+            MqttClient mqttClient = new MqttClient("tcp://35.156.24.107:8001", "HelloWorldQoS1Producer");
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setUserName("sample");
+            connOpts.setPassword("sample".toCharArray());
+            connOpts.setCleanSession(true);
+            // Connect the client
+            System.out.println("Connecting to Solace broker: tcp://" + "tcp://35.156.24.107:8001");
+            mqttClient.connect(connOpts);
+            System.out.println("Connected");
+            // Create a Mqtt message
+            
+            
+            String table="";
+            String whereCl="";
+            if(dataString.indexOf("|") >=0)
+            {
+            	   StringTokenizer st = new StringTokenizer(dataString, "|"); 
+                   while(st.hasMoreTokens()) { 
+                  	table = st.nextToken(); 
+                  	whereCl = st.nextToken(); 
+                  }
             }
-            public void handleError(String messageID, JCSMPException e, long timestamp) {
-                System.out.printf("Producer received error for msg: %s@%s - %s%n",
-                        messageID,timestamp,e);
+            else
+            {
+            	table = dataString;
             }
-        });
-        // Publish-only session is now hooked up and running!
+         
 
-        TextMessage msg = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
-        final String text = loadData();
-        msg.setText(text);
-        System.out.printf("Connected. About to send message '%s' to topic '%s'...%n",text,topic.getName());
-      
-        	 prod.send(msg,topic);
-        	 Thread.sleep(250);
+            MqttMessage message = new MqttMessage(GenericDataManager.loadData(table,whereCl).getBytes());
+            
+            // Set the QoS on the Messages - 
+            // Here we are using QoS of 1 (equivalent to Persistent Messages in Solace)
+            message.setQos(1);
 
-       
-        System.out.println("Message sent. Exiting.");
+            // Publish the message
+            mqttClient.publish("T/Booking/resp", message);
+            // Disconnect the client
+            mqttClient.disconnect();
+            System.out.println("Message published. Exiting");
+
+        } catch (MqttException me) {
+            System.out.println("reason " + me.getReasonCode());
+            System.out.println("msg " + me.getMessage());
+            System.out.println("loc " + me.getLocalizedMessage());
+            System.out.println("cause " + me.getCause());
+            System.out.println("excep " + me);
+            me.printStackTrace();
+        }
         consumeMessage();
     }
 }
