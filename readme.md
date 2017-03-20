@@ -27,4 +27,4 @@ Run the file DataFechingFactory. Or buid a executable jar and then run the same
 
 Start your webserver where you have deployed Solace-Demo application
 
-Hit the url http://<YOUR HOST>:<YOUR PORT>/Solace-Demo/index.html 
+Hit the url http://host:port/Solace-Demo/index.html 
