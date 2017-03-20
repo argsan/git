@@ -4,18 +4,27 @@
 
 •	Please set the root MySQL user password as admin                                                                                     
 
-•	Import these two project in your eclipse workspace (Solace-Demo is the web paho project & MQTT-Client is the data provider)
+•	Import these two project in your eclipse workspace (Solace-Demo is the web paho project & MQTT-Client is the data provider)             
+
 •	Logon to MySQL command line using root and run the IRCTC.sql file,this will create the metadata tables
+
 •	Compile all java component
+
 •	Once all setup is done please Run the com.solace.irctc.messageq.DataFechingFactory (Please make sure your system is connected to the internet)
+
 •	Add the web project into tomcat / or any other web server and start the server
+
 
 In code please change the router IP and port accordingly
 
 For router configuraiton
 Please run the cli script located under Solace-Demo file name Solace-Demo/Sample-Message-VPM.cli.
 
+
 How to run the application
+
 Run the file DataFechingFactory. Or buid a executable jar and then run the same
+
 Start your webserver where you have deployed Solace-Demo application
+
 Hit the url http://<YOUR HOST>:<YOUR PORT>/Solace-Demo/index.html 
