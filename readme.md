@@ -1,7 +1,9 @@
  Here is how to set-up the project in a local system.
 
-•	Install MySQL 5.7 database in your system and Java 8 and eclipse (Version: Neon.1a Release (4.6.1)) , Maven and its eclipse plugin & Tomcat 9 / or any other web server[I have used these for my local setup] /n
-•	Please set the root MySQL user password as admin
+•	Install MySQL 5.7 database in your system and Java 8 and eclipse (Version: Neon.1a Release (4.6.1)) , Maven and its eclipse plugin & Tomcat 9 / or any other web server[I have used these for my local setup]                                                              
+
+•	Please set the root MySQL user password as admin                                                                                     
+
 •	Import these two project in your eclipse workspace (Solace-Demo is the web paho project & MQTT-Client is the data provider)
 •	Logon to MySQL command line using root and run the IRCTC.sql file,this will create the metadata tables
 •	Compile all java component
