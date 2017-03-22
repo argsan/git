@@ -1,15 +1,10 @@
-package com.solace.irctc.messageq;
+package com.solace.demo.messageq;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.CountDownLatch;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -42,6 +37,7 @@ public class DataFechingFactory {
         System.out.println("QueueConsumer initializing...");
         // Create a JCSMP Session
         final JCSMPProperties properties = new JCSMPProperties();
+        //Connecting to an appliance
         properties.setProperty(JCSMPProperties.HOST, "35.156.24.107"); // msg-backbone ip:port
         properties.setProperty(JCSMPProperties.VPN_NAME, "Sample-Message-VPM"); // message-vpn
         properties.setProperty(JCSMPProperties.USERNAME, "sample"); // client-username
@@ -81,6 +77,7 @@ public class DataFechingFactory {
                     System.out.println("Message received.");
                 }
              
+                
                 String outputchr = new String(msg.dump());
                 outputStr.add(0, outputchr);
 
@@ -115,7 +112,7 @@ public class DataFechingFactory {
         	String ss1 = outputStr.get(0);
         	String ss2 =  outputStr.get(0).substring(ss1.indexOf("table"), ss1.length());
         	System.out.println(ss2);
-        	 publishMessage(ss2);
+        	publishMessage(ss2);
         }
            
     }
