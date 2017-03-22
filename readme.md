@@ -13,7 +13,7 @@
 •	For router configuration Please run the cli script located under Solace-Demo file name Solace-Demo/Sample-Message-VPM.cli.               
 
 How to run the application                                                                                                                
-•	Make the necessary changes to the router ip and port
-•	Run the file DataFechingFactory. Or buid a executable jar and then run the same
-•	Start your webserver where you have deployed Solace-Demo application
-•	Hit the url http://host:port/Solace-Demo/index.html
+•	Make the necessary changes to the router ip and port                                                                                   
+•	Run the file DataFechingFactory. Or buid a executable jar and then run the same                                                         
+•	Start your webserver where you have deployed Solace-Demo application                                                                    
+•	Hit the url http://host:port/Solace-Demo/index.html                                                                                      
