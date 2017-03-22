@@ -38,14 +38,14 @@ public class DataFechingFactory {
         // Create a JCSMP Session
         final JCSMPProperties properties = new JCSMPProperties();
         //Connecting to an appliance
-        properties.setProperty(JCSMPProperties.HOST, "35.156.24.107"); // msg-backbone ip:port
-        properties.setProperty(JCSMPProperties.VPN_NAME, "Sample-Message-VPM"); // message-vpn
-        properties.setProperty(JCSMPProperties.USERNAME, "sample"); // client-username
-        properties.setProperty(JCSMPProperties.PASSWORD, "sample"); // 
+        properties.setProperty(JCSMPProperties.HOST, ""); // msg-backbone ip:port
+        properties.setProperty(JCSMPProperties.VPN_NAME, ""); // message-vpn
+        properties.setProperty(JCSMPProperties.USERNAME, ""); // client-username
+        properties.setProperty(JCSMPProperties.PASSWORD, ""); // 
         final JCSMPSession session = JCSMPFactory.onlyInstance().createSession(properties);
         session.connect();
 
-        final String queueName = "Q/IRCTC-Req-Q";
+        final String queueName = "";
         System.out.printf("Attempting to provision the queue '%s' on the appliance.%n", queueName);
         final EndpointProperties endpointProps = new EndpointProperties();
         // set queue permissions to "consume" and access-type to "exclusive"
@@ -127,13 +127,13 @@ public class DataFechingFactory {
         
         try {
             // Create an Mqtt client
-            MqttClient mqttClient = new MqttClient("tcp://35.156.24.107:8001", "HelloWorldQoS1Producer");
+            MqttClient mqttClient = new MqttClient("", "");
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setUserName("sample");
             connOpts.setPassword("sample".toCharArray());
             connOpts.setCleanSession(true);
             // Connect the client
-            System.out.println("Connecting to Solace broker: tcp://" + "tcp://35.156.24.107:8001");
+            System.out.println("Connecting to Solace broker: tcp://");
             mqttClient.connect(connOpts);
             System.out.println("Connected");
             // Create a Mqtt message
