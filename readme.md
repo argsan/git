@@ -22,7 +22,7 @@ properties.setProperty(JCSMPProperties.PASSWORD, ""); // password
 //Put the queue Name
 final String queueName = "";
 Method - publishMessage(String dataString)
-MqttClient mqttClient = new MqttClient("tcp://<IP>:8001", "<Client Id>");
+MqttClient mqttClient = new MqttClient("tcp://<IP>:<port>", "<Client Id>");
 MqttConnectOptions connOpts = new MqttConnectOptions();
 connOpts.setUserName(""); // client-username   
 connOpts.setPassword("".toCharArray()); // client-password  
